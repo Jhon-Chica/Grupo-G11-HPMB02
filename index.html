@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de Viajes ✈️ - Politécnico Grancolombiano (Entrega 1 - Semana 3)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ====================================================================
+         1. ENCABEZADO INSTITUCIONAL POLI
+         ==================================================================== -->
+    <header class="top-hub-header">
+        <div class="hub-brand">
+            <div class="hub-logo-box">✈️</div>
+            <div class="hub-info">
+                <h1>
+                    Guía de Viajes
+                    <span class="badge-pill badge-item4">Ítem 4: Turismo</span>
+                    <span class="badge-pill badge-group">Grupo G11-HPMB02</span>
+                </h1>
+                <h2>Herramientas de Programación Móvil I • Entrega 1 (Semana 3)</h2>
+                <p><strong>Politécnico Grancolombiano</strong> | Arquitectura Two-Pane y Casos de Uso RF01 a RF08</p>
+            </div>
+        </div>
+        <div class="hub-meta">
+            <div class="team-avatars">
+                <span class="team-chip" title="Líder Arquitectura & Two-Pane">Sergio Castro G.</span>
+                <span class="team-chip" title="Multimedia & WebView">Julian Cuartas G.</span>
+                <span class="team-chip" title="UI/UX & Eventos">Georgette Garzon</span>
+                <span class="team-chip" title="UI/UX & Eventos">Jhon Chica</span>
+            </div>
+            <small style="color: #64748b; font-size: 0.65rem;">Posgrado en Ingeniería de Software</small>
+        </div>
+    </header>
+
+    <!-- ====================================================================
+         2. DOCK DE CONTROL DE TEMA Y HARDWARE
+         ==================================================================== -->
+    <section class="controls-dock">
+        <div class="theme-selector">
+            <span>Tema Material 3:</span>
+            <div class="theme-swatch active" data-theme="blue" style="background:#0284c7;" onclick="applyTheme('blue', this)" title="Azul Caribe Poli"></div>
+            <div class="theme-swatch" data-theme="green" style="background:#10b981;" onclick="applyTheme('green', this)" title="Verde Ecoturismo"></div>
+            <div class="theme-swatch" data-theme="rose" style="background:#f43f5e;" onclick="applyTheme('rose', this)" title="Coral Atardecer"></div>
+            <div class="theme-swatch" data-theme="amber" style="background:#f59e0b;" onclick="applyTheme('amber', this)" title="Ámbar Dorado"></div>
+            <div class="theme-swatch" data-theme="indigo" style="background:#6366f1;" onclick="applyTheme('indigo', this)" title="Índigo Andino"></div>
+        </div>
+
+        <div class="device-mode-selector">
+            <button class="device-btn active" id="btn-mode-tablet" onclick="toggleDeviceLayout('tablet')">
+                <span>🖥️</span> Modo Tablet Two-Pane (Horizontal)
+            </button>
+            <button class="device-btn" id="btn-mode-phone" onclick="toggleDeviceLayout('phone')">
+                <span>📱</span> Modo Celular (Vertical)
+            </button>
+        </div>
+    </section>
+
+    <!-- ====================================================================
+         3. CHASIS DE HARDWARE DEL DISPOSITIVO MÓVIL SIMULADO
+         ==================================================================== -->
+    <main class="phone-hardware-shell" id="device-shell">
+
+        <!-- Barra de Estado Android (Status Bar) -->
+        <header class="android-status-bar">
+            <div class="status-left">
+                <span id="android-clock">09:41</span>
+                <span>•</span>
+                <span style="color:#38bdf8;">✈️ Guía de Viajes</span>
+                <span class="offline-indicator-badge" id="offline-badge">OFFLINE ACTIVO</span>
+            </div>
+            <div class="status-camera-notch">
+                <div class="camera-lens"></div>
+            </div>
+            <div class="status-right">
+                <span>📶 5G</span>
+                <span>📶 WiFi</span>
+                <span>🔋 100%</span>
+            </div>
+        </header>
+
+        <!-- Layout Two-Pane (Mínimo dos fragmentos en pantalla) -->
+        <div class="two-pane-wrapper">
+
+            <!-- Backdrop para cerrar el Drawer en modo celular -->
+            <div class="drawer-backdrop" id="drawer-backdrop" onclick="closeNavDrawer()"></div>
+
+            <!-- ================================================================
+                 FRAGMENTO IZQUIERDO: Menú vertical (Persistente en Tablet / Drawer en Móvil)
+                 ================================================================ -->
+            <aside class="left-pane-fragment" id="left-pane">
+                <!-- Encabezado del Drawer exclusivo para modo móvil -->
+                <div class="drawer-header-mobile">
+                    <span>✈️ Menú de Navegación</span>
+                    <button class="btn-close-drawer" onclick="closeNavDrawer()" title="Cerrar menú">✕</button>
+                </div>
+
+                <div class="fragment-label-pill">Fragmento Izquierdo</div>
+
+                <!-- Tarjeta con instrucciones de la Entrega 1 -->
+                <div class="rubric-instructions-card">
+                    <h4>📋 Instrucciones Entrega 1</h4>
+                    <p>Mínimo dos fragmentos simultáneos. Menú lateral con opciones de viaje y panel derecho con contenido dinámico reactivo.</p>
+                </div>
+
+                <!-- Menú Vertical Interactivo (Inicio + 5 Opciones Oficiales) -->
+                <nav class="menu-options-list" aria-label="Menú de Navegación Principal">
+                    <!-- 0. Inicio / Dashboard -->
+                    <div class="menu-nav-item active" id="nav-opt-inicio" onclick="switchTab('inicio')">
+                        <div class="nav-item-content">
+                            <div class="nav-item-icon">🏠</div>
+                            <div class="nav-item-text">
+                                <h5>Inicio / Resumen</h5>
+                                <span>Visión general y accesos</span>
+                            </div>
+                        </div>
+                        <span class="nav-item-chevron">›</span>
+                    </div>
+
+                    <!-- 1. Perfil -->
+                    <div class="menu-nav-item" id="nav-opt-perfil" onclick="switchTab('perfil')">
+                        <div class="nav-item-content">
+                            <div class="nav-item-icon">👤</div>
+                            <div class="nav-item-text">
+                                <h5>Perfil Viajero</h5>
+                                <span>Foto, bio con scroll y logros</span>
+                            </div>
+                        </div>
+                        <span class="nav-item-chevron">›</span>
+                    </div>
+
+                    <!-- 2. Fotos / Destinos -->
+                    <div class="menu-nav-item" id="nav-opt-fotos" onclick="switchTab('fotos')">
+                        <div class="nav-item-content">
+                            <div class="nav-item-icon">📸</div>
+                            <div class="nav-item-text">
+                                <h5>Destinos Turísticos</h5>
+                                <span>Carrusel con scroll y ficha</span>
+                            </div>
+                        </div>
+                        <span class="nav-item-chevron">›</span>
+                    </div>
+
+                    <!-- 3. Video Guía -->
+                    <div class="menu-nav-item" id="nav-opt-video" onclick="switchTab('video')">
+                        <div class="nav-item-content">
+                            <div class="nav-item-icon">🎬</div>
+                            <div class="nav-item-text">
+                                <h5>Video Guía 4K</h5>
+                                <span>Tour en video y controles</span>
+                            </div>
+                        </div>
+                        <span class="nav-item-chevron">›</span>
+                    </div>
+
+                    <!-- 4. Portal Web -->
+                    <div class="menu-nav-item" id="nav-opt-web" onclick="switchTab('web')">
+                        <div class="nav-item-content">
+                            <div class="nav-item-icon">🌐</div>
+                            <div class="nav-item-text">
+                                <h5>Portal Web</h5>
+                                <span>Caja de URL y WebView</span>
+                            </div>
+                        </div>
+                        <span class="nav-item-chevron">›</span>
+                    </div>
+
+                    <!-- 5. Botones y Widgets (Ítem 4) -->
+                    <div class="menu-nav-item" id="nav-opt-botones" onclick="switchTab('botones')">
+                        <div class="nav-item-content">
+                            <div class="nav-item-icon">🔘</div>
+                            <div class="nav-item-text">
+                                <h5>Acciones de Viaje</h5>
+                                <span>Botones Ítem 4 y eventos</span>
+                            </div>
+                        </div>
+                        <span class="nav-item-chevron">›</span>
+                    </div>
+                </nav>
+
+                <!-- Utilidades del Menú Lateral -->
+                <div class="left-pane-utilities">
+                    <button class="btn-menu-util" onclick="openTraceabilityModal()">
+                        <span>🎓</span> Matriz Rúbrica & RFs
+                    </button>
+                    <button class="btn-menu-util" onclick="confirmResetSession()">
+                        <span>🔄</span> Reiniciar Sesión Demo
+                    </button>
+                </div>
+            </aside>
+
+            <!-- ================================================================
+                 FRAGMENTO DERECHO: Despliegue de la opción seleccionada
+                 ================================================================ -->
+            <section class="right-pane-fragment" id="right-pane">
+
+                <!-- Barra de Navegación Contextual Superior (Top App Bar Material 3) -->
+                <div class="contextual-top-nav">
+                    <div class="nav-left-cluster">
+                        <!-- Botón Hamburguesa para Móvil -->
+                        <button class="btn-hamburger" id="btn-hamburger" onclick="toggleNavDrawer()" title="Abrir menú de navegación (Drawer)">
+                            <span class="hamburger-icon">☰</span>
+                        </button>
+                        <!-- Botón Volver Contextual -->
+                        <button class="btn-back-nav" id="btn-nav-back" onclick="goBackNav()" title="Volver a la pantalla anterior">
+                            <span class="back-arrow">←</span>
+                            <span class="back-label">Volver</span>
+                        </button>
+                        <!-- Grupo de Título y Subtítulo RF -->
+                        <div class="nav-title-group">
+                            <span class="current-screen-title" id="current-nav-title">🏠 Inicio / Resumen de Viaje</span>
+                            <span class="rf-badge-tag" id="current-rf-badge">RF01 - TWO-PANE</span>
+                        </div>
+                    </div>
+                    <div class="nav-right-cluster">
+                        <button class="btn-traceability" onclick="openTraceabilityModal()" title="Consultar Matriz de Rúbrica & RFs">
+                            <span class="trace-icon">🎓</span>
+                            <span class="trace-label">Trazabilidad RFs</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ------------------------------------------------------------
+                     PANTALLA 0: INICIO / DASHBOARD PRINCIPAL (REQUERIMIENTO 7)
+                     ------------------------------------------------------------ -->
+                <div class="fragment-screen active" id="screen-inicio">
+                    <div class="dashboard-layout">
+                        <!-- Hero Card Principal -->
+                        <div class="dash-hero-card">
+                            <div class="dash-hero-text">
+                                <h3>¡Bienvenido a la Guía de Viajes! ✈️</h3>
+                                <p>Tu plataforma integral para la exploración, documentación y planificación ecoturística en Colombia bajo arquitectura Android Two-Pane.</p>
+                                <div class="dash-hero-tags">
+                                    <span class="dash-tag">🇨🇴 6 Regiones Turísticas</span>
+                                    <span class="dash-tag">🛡️ Guías Certificados RNT</span>
+                                    <span class="dash-tag">🌿 Ecoturismo Sostenible</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tira de Estado del Sistema Móvil -->
+                        <div class="dash-status-strip">
+                            <div class="dash-status-item">
+                                <div class="status-icon-box" style="background:rgba(16,185,129,0.2); color:#10b981;">📡</div>
+                                <div class="dash-status-info">
+                                    <strong>Conexión Activa</strong>
+                                    <span>Mapas y datos sincronizados</span>
+                                </div>
+                            </div>
+                            <div class="dash-status-item">
+                                <div class="status-icon-box" style="background:rgba(2,132,199,0.2); color:#38bdf8;">👤</div>
+                                <div class="dash-status-info">
+                                    <strong>Alejandro Gómez</strong>
+                                    <span>Guía RNT #64821 asignado</span>
+                                </div>
+                            </div>
+                            <div class="dash-status-item">
+                                <div class="status-icon-box" style="background:rgba(245,158,11,0.2); color:#f59e0b;">🧳</div>
+                                <div class="dash-status-info">
+                                    <strong>Equipaje 65%</strong>
+                                    <span>Documentos verificados</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Encabezado de Accesos Directos -->
+                        <div class="dash-section-header">
+                            <h4>Módulos Principales de la Aplicación</h4>
+                            <small style="color:#94a3b8; font-size:0.65rem;">Selecciona una tarjeta para ingresar</small>
+                        </div>
+
+                        <!-- Cuadrícula de Accesos Rápidos (Los 5 Módulos) -->
+                        <div class="dash-shortcuts-grid">
+                            <div class="dash-shortcut-card" onclick="switchTab('perfil')">
+                                <div class="shortcut-top-row">
+                                    <span class="shortcut-icon">👤</span>
+                                    <span class="shortcut-rf-pill">RF02</span>
+                                </div>
+                                <h5>Perfil del Guía</h5>
+                                <p>Foto, credenciales RNT, bio con scroll y reseñas de viajeros.</p>
+                            </div>
+
+                            <div class="dash-shortcut-card" onclick="switchTab('fotos')">
+                                <div class="shortcut-top-row">
+                                    <span class="shortcut-icon">📸</span>
+                                    <span class="shortcut-rf-pill">RF03</span>
+                                </div>
+                                <h5>8 Destinos Turísticos</h5>
+                                <p>Carrusel deslizable, temporadas, clima y buscador reactivo.</p>
+                            </div>
+
+                            <div class="dash-shortcut-card" onclick="switchTab('video')">
+                                <div class="shortcut-top-row">
+                                    <span class="shortcut-icon">🎬</span>
+                                    <span class="shortcut-rf-pill">RF04</span>
+                                </div>
+                                <h5>Video Guía 4K</h5>
+                                <p>Reproductor 16:9 con controles, subtítulos CC y capítulos.</p>
+                            </div>
+
+                            <div class="dash-shortcut-card" onclick="switchTab('web')">
+                                <div class="shortcut-top-row">
+                                    <span class="shortcut-icon">🌐</span>
+                                    <span class="shortcut-rf-pill">RF05</span>
+                                </div>
+                                <h5>Portal Web</h5>
+                                <p>Simulador WebView con caja de URL, historial y sitios oficiales.</p>
+                            </div>
+
+                            <div class="dash-shortcut-card" onclick="switchTab('botones')">
+                                <div class="shortcut-top-row">
+                                    <span class="shortcut-icon">🔘</span>
+                                    <span class="shortcut-rf-pill">RF06-08</span>
+                                </div>
+                                <h5>Acciones Ítem 4</h5>
+                                <p>Itinerario, equipaje, marcadores GPS y traductor con audio.</p>
+                            </div>
+
+                            <div class="dash-shortcut-card" onclick="openTraceabilityModal()">
+                                <div class="shortcut-top-row">
+                                    <span class="shortcut-icon">🎓</span>
+                                    <span class="shortcut-rf-pill">RÚBRICA</span>
+                                </div>
+                                <h5>Trazabilidad Académica</h5>
+                                <p>Matriz completa de Requerimientos y Casos de Uso UML.</p>
+                            </div>
+                        </div>
+
+                        <!-- Fila Inferior: Destino del Día y Acción Rápida -->
+                        <div class="dash-featured-row">
+                            <div class="dash-spotlight-box">
+                                <div>
+                                    <div class="spotlight-badge">⭐ DESTINO DESTACADO DEL DÍA</div>
+                                    <h5>P.N.N. Tayrona • Santa Marta</h5>
+                                    <p>Santuario natural donde la selva de la Sierra Nevada se encuentra con el Caribe. Temporada ideal: Enero a Octubre.</p>
+                                </div>
+                                <button class="btn-spotlight-go" onclick="selectDestination(2); switchTab('fotos');">
+                                    Ver Ficha Técnica Completa ›
+                                </button>
+                            </div>
+
+                            <div class="dash-spotlight-box">
+                                <div>
+                                    <div class="spotlight-badge" style="color:#38bdf8;">🗺️ PLANIFICADOR RÁPIDO</div>
+                                    <h5>Crea tu Itinerario de Viaje</h5>
+                                    <p>Configura días, presupuesto y enfoque ecoturístico con asistencia de guías certificados.</p>
+                                </div>
+                                <button class="btn-spotlight-go" style="background:#10b981;" onclick="openBottomSheet('itinerario');">
+                                    Iniciar Planificador Ahora ›
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ------------------------------------------------------------
+                     PANTALLA 1: PERFIL DEL GUÍA Y VIAJERO (RF02)
+                     ------------------------------------------------------------ -->
+                <div class="fragment-screen" id="screen-perfil">
+                    <div class="profile-container">
+                        <!-- Tarjeta Principal de Perfil -->
+                        <div class="profile-hero-card">
+                            <div class="profile-cover">
+                                <span class="profile-cover-tag">RNT Certificado #64821</span>
+                            </div>
+                            <div class="profile-main-body">
+                                <div class="avatar-row">
+                                    <div class="avatar-wrapper">
+                                        <svg class="avatar-svg-circle" viewBox="0 0 100 100">
+                                            <defs>
+                                                <linearGradient id="avGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                    <stop offset="0%" stop-color="#0284c7" />
+                                                    <stop offset="100%" stop-color="#0f172a" />
+                                                </linearGradient>
+                                            </defs>
+                                            <circle cx="50" cy="50" r="48" fill="url(#avGrad)" />
+                                            <circle cx="50" cy="38" r="21" fill="#f8fafc" />
+                                            <path d="M 20 86 C 24 58 76 58 80 86 Z" fill="#38bdf8" />
+                                            <circle cx="50" cy="35" r="14" fill="#fed7aa" />
+                                            <path d="M 38 28 Q 50 18 62 28 Q 50 24 38 28 Z" fill="#78350f" />
+                                        </svg>
+                                        <div class="avatar-online-dot" title="Guía en línea activo"></div>
+                                    </div>
+                                    <div class="profile-actions-top">
+                                        <button class="btn-profile-action" onclick="openContactModal()">💬 Contactar</button>
+                                        <button class="btn-profile-action" onclick="openCredentialModal()">📜 Credencial RNT</button>
+                                    </div>
+                                </div>
+
+                                <div class="profile-name-block">
+                                    <h3>Alejandro Gómez R. <span style="color:#38bdf8; font-size:0.9rem;" title="Guía Oficial Verificado">☑</span></h3>
+                                    <p class="profile-role">Guía Profesional de Ecoturismo & Fotógrafo de Expedición</p>
+                                </div>
+
+                                <!-- Estadísticas de Viaje -->
+                                <div class="stats-grid-quad">
+                                    <div class="stat-metric-card" onclick="switchTab('fotos')" style="cursor:pointer;" title="Ver los destinos">
+                                        <span class="stat-metric-val">48</span>
+                                        <span class="stat-metric-lbl">Destinos ›</span>
+                                    </div>
+                                    <div class="stat-metric-card">
+                                        <span class="stat-metric-val">120+</span>
+                                        <span class="stat-metric-lbl">Expediciones</span>
+                                    </div>
+                                    <div class="stat-metric-card">
+                                        <span class="stat-metric-val">3</span>
+                                        <span class="stat-metric-lbl">Idiomas</span>
+                                    </div>
+                                    <div class="stat-metric-card" onclick="switchProfileTab('resenas')" style="cursor:pointer;" title="Ver reseñas">
+                                        <span class="stat-metric-val">4.9 ⭐</span>
+                                        <span class="stat-metric-lbl">Calificación ›</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Barra de Pestañas del Perfil -->
+                        <div class="profile-tabs-strip">
+                            <button class="profile-tab-btn active" id="btn-ptab-bio" onclick="switchProfileTab('bio')">📜 Biografía</button>
+                            <button class="profile-tab-btn" id="btn-ptab-formacion" onclick="switchProfileTab('formacion')">🎓 Formación</button>
+                            <button class="profile-tab-btn" id="btn-ptab-cert" onclick="switchProfileTab('cert')">🛡️ Certificaciones</button>
+                            <button class="profile-tab-btn" id="btn-ptab-resenas" onclick="switchProfileTab('resenas')">⭐ Reseñas (3)</button>
+                        </div>
+
+                        <!-- Sección de Contenido con Scroll Explícito (Modifier.verticalScroll) -->
+                        <div class="scrollable-section">
+                            <div class="custom-scroll-container" id="profile-scroll-content">
+                                Explorador apasionado y Guía Turístico Certificado por el Viceministerio de Comercio, Industria y Turismo de Colombia (RNT #64821) con más de 7 años recorriendo y documentando los ecosistemas de Colombia.<br><br>
+                                Especializado en rutas de alta montaña en los Parques Nacionales Naturales, selva húmeda del Amazonas, reservas coralinas del Caribe y senderos patrimoniales coloniales.<br><br>
+                                Comprometido con el turismo regenerativo, la preservación ecológica y la seguridad de los viajeros en cada travesía mediante protocolos WFA internacionales de primer nivel.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ------------------------------------------------------------
+                     PANTALLA 2: DESTINOS TURÍSTICOS (RF03)
+                     ------------------------------------------------------------ -->
+                <div class="fragment-screen" id="screen-fotos">
+                    <div class="destinations-layout">
+                        <!-- Barra de Búsqueda de Destinos -->
+                        <div class="dest-search-bar-row">
+                            <div class="dest-search-input-box">
+                                <span>🔍</span>
+                                <input type="text" class="dest-search-input" id="dest-search-input" placeholder="Buscar destino por nombre, región o clima..." oninput="onDestSearchInput(this.value)">
+                            </div>
+                            <button class="btn-profile-action" onclick="clearDestSearch()" title="Restablecer búsqueda">Limpiar</button>
+                        </div>
+
+                        <!-- Chips de Filtrado por Región / Categoría -->
+                        <div class="dest-filter-chips-row">
+                            <button class="filter-chip active" id="chip-cat-todos" onclick="setDestCategoryFilter('Todos')">Todos (8)</button>
+                            <button class="filter-chip" id="chip-cat-caribe" onclick="setDestCategoryFilter('Caribe')">🏖️ Caribe</button>
+                            <button class="filter-chip" id="chip-cat-andina" onclick="setDestCategoryFilter('Andina')">⛰️ Andes</button>
+                            <button class="filter-chip" id="chip-cat-amazonia" onclick="setDestCategoryFilter('Amazonía')">🦜 Amazonía</button>
+                            <button class="filter-chip" id="chip-cat-ecoturismo" onclick="setDestCategoryFilter('Ecoturismo')">🌿 Ecoturismo</button>
+                            <button class="filter-chip" id="chip-cat-favoritos" onclick="setDestCategoryFilter('Favoritos')">❤️ Favoritos</button>
+                        </div>
+
+                        <!-- Carrusel Horizontal con Scroll (LazyRow) -->
+                        <div class="dest-carousel-track" id="dest-track-container" role="region" aria-label="Carrusel de Destinos">
+                            <!-- Destinos generados dinámicamente -->
+                        </div>
+
+                        <!-- Estado Vacío (Empty State) si la búsqueda no arroja resultados -->
+                        <div class="empty-state-card" id="dest-empty-state" style="display:none;">
+                            <span class="empty-state-icon">🧭🔍</span>
+                            <h5>No se encontraron destinos</h5>
+                            <p>No hay atractivos que coincidan con tu búsqueda o filtro seleccionado. Intenta con otra palabra clave.</p>
+                            <button class="btn-modal-submit" onclick="clearDestSearch()" style="margin-top:6px;">Restablecer Todos los Filtros</button>
+                        </div>
+
+                        <!-- Ficha Reactiva Detallada del Destino Seleccionado -->
+                        <div class="dest-featured-sheet">
+                            <div class="dest-hero-banner" id="dest-banner-container">
+                                <svg id="dest-banner-svg" width="100%" height="100%"></svg>
+                                <div class="dest-banner-overlay">
+                                    <div class="dest-banner-title">
+                                        <h4 id="dest-sheet-title">Cartagena de Indias</h4>
+                                        <span id="dest-sheet-region">Región Caribe • Colombia</span>
+                                    </div>
+                                    <span class="dest-pill-category" id="dest-sheet-category">Patrimonio</span>
+                                </div>
+                            </div>
+
+                            <div class="dest-sheet-body">
+                                <div class="dest-chips-bar">
+                                    <div class="dest-meta-chip"><span id="dest-sheet-season">📅 Dic - Abr</span></div>
+                                    <div class="dest-meta-chip"><span id="dest-sheet-days">⏱️ 3 a 4 días</span></div>
+                                    <div class="dest-meta-chip"><span id="dest-sheet-climate">☀️ 30°C Cálido</span></div>
+                                    <div class="dest-meta-chip"><span id="dest-sheet-budget">$$$ Moderado</span></div>
+                                </div>
+
+                                <div class="dest-desc-box" id="dest-sheet-desc">
+                                    Joya histórica del Caribe colombiano rodeada por murallas centenarias y fortalezas coloniales...
+                                </div>
+
+                                <div class="dest-sheet-footer">
+                                    <button class="btn-profile-action" onclick="openDestGalleryModal()">
+                                        <span>📷</span> Ver Fotos de Expedición (3)
+                                    </button>
+                                    <button class="btn-plan-dest" onclick="planTripForCurrentDestination()">
+                                        <span>🗺️</span> Planear Ruta Aquí
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ------------------------------------------------------------
+                     PANTALLA 3: VIDEO GUÍA MULTIMEDIA (RF04)
+                     ------------------------------------------------------------ -->
+                <div class="fragment-screen" id="screen-video">
+                    <div class="video-player-wrapper">
+                        <!-- Pantalla 16:9 con animación y subtítulos -->
+                        <div class="video-screen-16-9">
+                            <canvas id="video-canvas-view" width="400" height="200" class="video-canvas-bg"></canvas>
+                            
+                            <div class="video-watermark">
+                                <span>🇨🇴</span>
+                                <div>
+                                    <strong id="video-tour-title">Expedición 7 Maravillas en 4K</strong>
+                                    <span id="video-tour-sub" style="display:block; font-size:0.55rem; opacity:0.8;">Tour Oficial • Politécnico Grancolombiano</span>
+                                </div>
+                            </div>
+
+                            <div class="video-live-badge" id="video-live-tag">PAUSA</div>
+
+                            <!-- Subtítulos interactivos -->
+                            <div class="video-subtitles-overlay" id="video-subtitles-box">
+                                Bienvenidos a la Expedición Colombia: Un viaje por el país de la belleza.
+                            </div>
+
+                            <button class="video-center-button" id="video-center-btn" onclick="togglePlayVideo()" title="Play / Pausa">
+                                ▶
+                            </button>
+                        </div>
+
+                        <!-- Barra de Controles Multimedia -->
+                        <div class="video-control-rack">
+                            <!-- Scrubber Slider -->
+                            <div class="video-timeline-bar">
+                                <span class="time-display" id="video-time-cur">01:35</span>
+                                <input type="range" class="video-scrubber" id="video-scrubber" min="0" max="312" value="95" oninput="onScrubberInput(this.value)">
+                                <span class="time-display" id="video-time-total" style="text-align:right;">05:12</span>
+                            </div>
+
+                            <!-- Botonera de Control -->
+                            <div class="video-actions-row">
+                                <div class="video-cluster-left">
+                                    <button class="btn-player" id="video-mute-btn" onclick="toggleMuteVideo()" title="Silenciar / Activar audio">🔊</button>
+                                    <button class="btn-player" id="video-speed-btn" onclick="cycleVideoSpeed()" title="Velocidad">1.0x</button>
+                                    <button class="btn-player" id="video-sub-btn" onclick="toggleSubtitles()" title="Subtítulos CC">CC: ES</button>
+                                </div>
+
+                                <div class="video-cluster-center">
+                                    <button class="btn-player" onclick="seekVideo(-10)" title="Retroceder 10 segundos">⏪ 10s</button>
+                                    <button class="btn-player play-main" id="video-play-btn" onclick="togglePlayVideo()" title="Reproducir / Pausa">▶</button>
+                                    <button class="btn-player" onclick="stopVideo()" title="Detener (Stop)">⏹️</button>
+                                    <button class="btn-player" onclick="seekVideo(10)" title="Adelantar 10 segundos">⏩ 10s</button>
+                                </div>
+
+                                <div class="video-cluster-right">
+                                    <button class="btn-player" onclick="cycleVideoPlaylist()" title="Cambiar Tour en Video">🎞️ Tour</button>
+                                    <button class="btn-player" onclick="toggleFullscreenPlayer()" title="Pantalla completa">⛶</button>
+                                </div>
+                            </div>
+
+                            <!-- Capítulos de Video -->
+                            <div class="video-chapters-row">
+                                <span style="font-size:0.6rem; color:#64748b; align-self:center;">Capítulos:</span>
+                                <button class="chapter-pill" onclick="jumpToChapter(0, 'Intro Colombia')">00:00 Intro</button>
+                                <button class="chapter-pill" onclick="jumpToChapter(75, 'Cartagena')">01:15 Cartagena</button>
+                                <button class="chapter-pill" onclick="jumpToChapter(150, 'Tayrona')">02:30 Tayrona</button>
+                                <button class="chapter-pill" onclick="jumpToChapter(225, 'Cocora')">03:45 Cocora</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ------------------------------------------------------------
+                     PANTALLA 4: PORTAL WEB NAVEGABLE (RF05)
+                     ------------------------------------------------------------ -->
+                <div class="fragment-screen" id="screen-web">
+                    <div class="browser-simulator-frame">
+                        <!-- Barra Omnibox con Historial y Marcadores -->
+                        <div class="browser-omnibox-bar">
+                            <button class="browser-nav-btn" onclick="goWebBack()" title="Atrás en el historial">◀</button>
+                            <button class="browser-nav-btn" onclick="goWebForward()" title="Adelante en el historial">▶</button>
+                            <button class="browser-nav-btn" onclick="navigateWebUrl()" title="Recargar página">🔄</button>
+                            <button class="browser-nav-btn" onclick="quickNavWeb('https://colombia.travel')" title="Inicio Colombia Travel">🏠</button>
+                            
+                            <div class="url-input-container">
+                                <span class="lock-badge">🔒</span>
+                                <input type="text" class="web-url-field" id="browser-url-input" value="https://colombia.travel" onkeypress="if(event.key==='Enter') navigateWebUrl()">
+                                <button style="background:transparent; border:none; color:#f59e0b; cursor:pointer;" onclick="bookmarkCurrentUrl()" title="Añadir a marcadores">⭐</button>
+                            </div>
+
+                            <button class="btn-browser-go" onclick="navigateWebUrl()">Ir</button>
+                        </div>
+
+                        <!-- Barra de carga animada -->
+                        <div class="webview-progress-line" id="webview-progress"></div>
+
+                        <!-- Chips de Enlaces Rápidos Oficiales -->
+                        <div class="quick-bookmarks-strip">
+                            <span class="bookmark-chip" onclick="quickNavWeb('https://colombia.travel')">🇨🇴 Colombia.Travel</span>
+                            <span class="bookmark-chip" onclick="quickNavWeb('https://parquesnacionales.gov.co')">🏞️ Parques Nacionales</span>
+                            <span class="bookmark-chip" onclick="quickNavWeb('https://mincit.gov.co/turismo')">🏛️ MinCIT Turismo</span>
+                            <span class="bookmark-chip" onclick="quickNavWeb('https://artesaniasdecolombia.com.co')">🧶 Artesanías Colombia</span>
+                        </div>
+
+                        <!-- Canvas de Renderizado del WebView -->
+                        <div class="webview-render-canvas" id="webview-content-area">
+                            <div class="portal-nav-bar">
+                                <div class="portal-brand">🇨🇴 COLOMBIA TRAVEL • Portal Oficial</div>
+                                <small style="color:#7dd3fc;">Marca País</small>
+                            </div>
+                            <div class="portal-hero">
+                                <h4>El País de la Belleza: 6 Regiones Turísticas</h4>
+                                <p>Descubra experiencias inolvidables en el Gran Caribe, Andes Occidentales y Amazonía.</p>
+                            </div>
+                            <div class="portal-grid">
+                                <div class="portal-card">
+                                    <h5>🏖️ Caribe & Playas</h5>
+                                    <p>Cartagena, Tayrona y San Andrés.</p>
+                                    <a href="javascript:void(0)" onclick="selectDestination(1); switchTab('fotos');">Ver destinos ›</a>
+                                </div>
+                                <div class="portal-card">
+                                    <h5>☕ Paisaje Cafetero</h5>
+                                    <p>Valle de Cocora y Salento.</p>
+                                    <a href="javascript:void(0)" onclick="selectDestination(5); switchTab('fotos');">Ver destinos ›</a>
+                                </div>
+                                <div class="portal-card">
+                                    <h5>🦜 Selva Amazónica</h5>
+                                    <p>Puerto Nariño y avistamiento de fauna.</p>
+                                    <a href="javascript:void(0)" onclick="selectDestination(7); switchTab('fotos');">Ver destinos ›</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ------------------------------------------------------------
+                     PANTALLA 5: BOTONES Y WIDGETS DEL ÍTEM 4 (RF06, RF07, RF08)
+                     ------------------------------------------------------------ -->
+                <div class="fragment-screen" id="screen-botones">
+                    <div class="actions-layout">
+                        <div class="actions-header">
+                            <h3>Botones Exclusivos del Ítem 4 (Guía de Viajes)</h3>
+                            <p>Interactúe con cada control para abrir sus módulos móviles y registrar la telemetría:</p>
+                        </div>
+
+                        <!-- Los 4 Botones Oficiales del Ítem 4 -->
+                        <div class="item4-buttons-grid">
+                            <div class="btn-item4-card btn-itinerario" onclick="openBottomSheet('itinerario')">
+                                <div class="btn-item4-icon">🗺️</div>
+                                <div class="btn-item4-info">
+                                    <h4>Crear Itinerario Viaje</h4>
+                                    <span>Generar plan diario y ruta</span>
+                                </div>
+                            </div>
+
+                            <div class="btn-item4-card btn-equipaje" onclick="openBottomSheet('equipaje')">
+                                <div class="btn-item4-icon">🧳</div>
+                                <div class="btn-item4-info">
+                                    <h4>Lista de Equipaje</h4>
+                                    <span>Checklist y control de peso</span>
+                                </div>
+                            </div>
+
+                            <div class="btn-item4-card btn-punto" onclick="openBottomSheet('punto')">
+                                <div class="btn-item4-icon">📌</div>
+                                <div class="btn-item4-info">
+                                    <h4>Guardar Punto Turístico</h4>
+                                    <span>Marcadores GPS y favoritos</span>
+                                </div>
+                            </div>
+
+                            <div class="btn-item4-card btn-traducir" onclick="openBottomSheet('traducir')">
+                                <div class="btn-item4-icon">🔤</div>
+                                <div class="btn-item4-info">
+                                    <h4>Traducir Frases Útiles</h4>
+                                    <span>Glosario bilingüe y audio</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Widgets Material Design 3 (Switch y Checkbox) -->
+                        <div class="widgets-panel-card">
+                            <div class="widget-switch-row">
+                                <div class="widget-switch-label">
+                                    <span>📡</span>
+                                    <span>Modo Guía Sin Conexión (Offline Cache)</span>
+                                </div>
+                                <label class="md3-switch">
+                                    <input type="checkbox" onchange="toggleOfflineMode(this.checked)">
+                                    <span class="switch-slider"></span>
+                                </label>
+                            </div>
+
+                            <div class="checklist-group">
+                                <label class="checklist-item">
+                                    <input type="checkbox" checked onchange="showToast('Pasaporte validado', 'info'); logEvent('Checklist: Pasaporte verificado', 'toggle')">
+                                    <span>Pasaporte o C.C. vigente</span>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" checked onchange="showToast('Seguro médico validado', 'info'); logEvent('Checklist: Seguro médico verificado', 'toggle')">
+                                    <span>Seguro médico de viaje</span>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" onchange="showToast('Vacuna Fiebre Amarilla marcada', 'info'); logEvent('Checklist: Vacuna fiebre amarilla', 'toggle')">
+                                    <span>Vacunación Fiebre Amarilla</span>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" checked onchange="showToast('Permiso PNN validado', 'info'); logEvent('Checklist: Permiso PNN validado', 'toggle')">
+                                    <span>Permisos Parques Nacionales</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Monitor y Telemetría de Eventos en Tiempo Real (RF08) -->
+                        <div class="event-monitor-box">
+                            <div class="monitor-head">
+                                <div class="monitor-title">
+                                    <span>⚡</span>
+                                    <span>Monitor de Telemetría & Clics en Vivo</span>
+                                </div>
+                                <div class="monitor-stats">
+                                    <span class="click-pill" id="click-counter-display">Interacciones: 0</span>
+                                    <button class="btn-monitor-action" onclick="exportEventLogJson()">Exportar JSON</button>
+                                    <button class="btn-monitor-action" onclick="clearEventLogs()">Limpiar</button>
+                                </div>
+                            </div>
+
+                            <div class="monitor-scroll-window" id="event-log-rows">
+                                <div class="log-entry-row">
+                                    <span class="log-time">[09:41:00]</span>
+                                    <span class="log-tag nav">SISTEMA</span>
+                                    <span>Consola reactiva iniciada en Jetpack Compose Two-Pane</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+
+        <!-- ================================================================
+             4. MODAL MÓVIL / BOTTOM SHEET
+             ================================================================ -->
+        <div class="mobile-bottom-sheet-backdrop" id="bottom-sheet-backdrop" onclick="handleBackdropClick(event)">
+            <div class="bottom-sheet-modal">
+                <div class="sheet-drag-handle"></div>
+                <div class="sheet-head-row">
+                    <h4 id="sheet-title">Acción de Viaje</h4>
+                    <button class="btn-close-sheet" onclick="closeBottomSheet()">✕</button>
+                </div>
+                <div class="sheet-inner-content" id="sheet-modal-content">
+                    <!-- Contenido inyectado dinámicamente -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Sistema Nativo de Notificaciones Toast / Snackbar -->
+        <div class="android-toast-container" id="android-toast-box"></div>
+
+        <!-- Barra de Navegación Inferior (Material 3 Bottom Navigation Bar - Solo en Modo Celular) -->
+        <nav class="mobile-bottom-nav" id="mobile-bottom-nav" aria-label="Navegación Rápida Móvil">
+            <button class="bottom-nav-item active" id="bnav-opt-inicio" onclick="switchTab('inicio')">
+                <div class="bnav-pill">
+                    <span class="bnav-icon">🏠</span>
+                </div>
+                <span class="bnav-label">Inicio</span>
+            </button>
+            <button class="bottom-nav-item" id="bnav-opt-perfil" onclick="switchTab('perfil')">
+                <div class="bnav-pill">
+                    <span class="bnav-icon">👤</span>
+                </div>
+                <span class="bnav-label">Guía</span>
+            </button>
+            <button class="bottom-nav-item" id="bnav-opt-fotos" onclick="switchTab('fotos')">
+                <div class="bnav-pill">
+                    <span class="bnav-icon">📸</span>
+                </div>
+                <span class="bnav-label">Destinos</span>
+            </button>
+            <button class="bottom-nav-item" id="bnav-opt-video" onclick="switchTab('video')">
+                <div class="bnav-pill">
+                    <span class="bnav-icon">🎬</span>
+                </div>
+                <span class="bnav-label">Video</span>
+            </button>
+            <button class="bottom-nav-item" id="bnav-opt-web" onclick="switchTab('web')">
+                <div class="bnav-pill">
+                    <span class="bnav-icon">🌐</span>
+                </div>
+                <span class="bnav-label">Web</span>
+            </button>
+            <button class="bottom-nav-item" id="bnav-opt-botones" onclick="switchTab('botones')">
+                <div class="bnav-pill">
+                    <span class="bnav-icon">🔘</span>
+                    <span class="bnav-badge">4</span>
+                </div>
+                <span class="bnav-label">Ítem 4</span>
+            </button>
+        </nav>
+
+        <!-- Barra de Gestos de Android -->
+        <nav class="android-nav-bar" aria-label="Navegación del Sistema">
+            <div class="android-gesture-pill"></div>
+        </nav>
+    </main>
+
+    <!-- ====================================================================
+         5. PIE DE PÁGINA ACADÉMICO
+         ==================================================================== -->
+    <footer class="academic-footer">
+        <p>
+            <strong>Politécnico Grancolombiano</strong> • Facultad de Ingeniería, Diseño e Innovación<br>
+            Módulo: Herramientas de Programación Móvil I | Código de Grupo: <strong>G11-HPMB02</strong> | Entrega 1 (Semana 3)<br>
+            Arquitectura Two-Pane y Casos de Uso RF01 a RF08 para la <em>Guía de Viajes ✈️ (Ítem 4: Turismo)</em>
+        </p>
+    </footer>
+
+    <!-- Script de Lógica Modular JS -->
+    <script src="script.js"></script>
+</body>
+</html>
